@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cell {
+            /* width: 100px;
+            height: 100px;
+            display: inline-block; */
+            background: url(img/bg1.png);
+        }
+        
+        #GamePlane {
+            display: grid;
+            grid-template-columns: repeat(10, 10%);
+            grid-template-rows: repeat(10, 5%);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="GamePlane" style="width: 100px;height: 200px;border: 1px solid gray;"></div>
+    <script>
+        var $ = document;
+        var src = "(img/bg1.png)";
+        var div_GP = $.getElementById('GamePlane');
+        for (var i = 0; i < 20; i++) {
+            for (var j = 0; j < 10; j++) {
+                div_GP.innerHTML += "<div class='cell' id=" + i + "_" + j + " value=0 ></div>";
+            }
+        }
+
+        function Show(i, j) {
+            var cell = $.getElementById(i + "_" + j);
+            cell.value = 1;
+            cell.style.background = "url(img/bg2.png)"
+        }
+
+        function Hide(i, j) {
+            var cell = $.getElementById(i + "_" + j);
+            cell.value = 0;
+            cell.style.background = "url(img/bg1.png)"
+        }
+    </script>
+</body>
+
+</html>

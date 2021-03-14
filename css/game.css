@@ -1,0 +1,28 @@
+.mainSreen{
+    width: 205px;
+    height: 259px;
+    background-color: rgb(157,172,129);
+    border: 1px solid #000;
+    /* background: url(../img/images01/screen.png); */
+}
+
+/*
+ * 解决高度塌陷问题  clearfix
+ */
+
+ .clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.game{
+    width: 135px;
+    height: 249px;
+    border: 1px solid rgb(104,119,80);
+    margin: 3px;
+}
