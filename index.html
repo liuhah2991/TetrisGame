@@ -25,7 +25,7 @@
                     <div id="leftScreenPlane">
                         <div id="cellsPlane"></div>
                     </div>
-                    <div id="rightScreenPlane" >
+                    <div id="rightScreenPlane">
                         <div id="highScorePlane">
                             <p class="P_en">HI-SCORE</p>
                             <p class="P_num">888888</p>
@@ -77,7 +77,7 @@
                         <p id="optionText" class="p4">OPTIONS</p>
 
                         <button id="rotateBtn" class="abs b4"></button>
-                        <p id="rotateText" class="abs p3">ROTATE</p> 
+                        <p id="rotateText" class="abs p3">ROTATE</p>
                     </div>
                 </div>
             </div>
@@ -96,19 +96,20 @@
         var $ = document;
         var src = "(img/bg1.png)";
         var div_GP = $.getElementById('cellsPlane');
-        for (let i = 0; i < 11; i++) {
-            for (let j = 0; j < 20; j++) {
-                div_GP.innerHTML += "<div class='cell' row="+i+" col="+j+" value=0 ></div>";
+        for (let i = 4; i < 24; i++) {
+            for (let j = 0; j < 11; j++) {
+                div_GP.innerHTML += "<div class='cell'  id='CS_" + i + "_" + j + "'  value=0 ></div>";
             }
         }
 
         var div_NSP = $.getElementById('nextShapePlane');
-        for(let k=0;k<4;k++){
-            for(let z=0;z<4;z++){
-                div_NSP.innerHTML += "<div class='cell' row="+z+" col="+k+" value=0 ></div>";
+        for (let k = 0; k < 4; k++) {
+            for (let z = 0; z < 4; z++) {
+                div_NSP.innerHTML += "<div class='cell' id='NS_" + k + "_" + z + "' value=0 ></div>";
             }
         }
     </script>
+    <script src="js/shape.js"></script>
 </body>
 
 </html>
