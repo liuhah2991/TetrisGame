@@ -1,5 +1,7 @@
    (function(window) {
        var $ = document;
+
+        //填充主游戏屏幕的方格子
        var div_GP = $.getElementById('cellsPlane');
        for (let i = 4; i < 24; i++) {
            for (let j = 0; j < 11; j++) {
@@ -7,6 +9,7 @@
            }
        }
 
+       //填充下一个图形屏幕的方格子
        var div_NSP = $.getElementById('nextShapePlane');
        for (let k = 0; k < 4; k++) {
            for (let z = 0; z < 4; z++) {
