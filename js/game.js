@@ -25,13 +25,18 @@
 
     oGameScense.RunGame = function() {
         oGameScense.eGameState = eGameState.RUN;
-        refreshShape(1);
+        refreshShape(2);
 
         for (let i = 0; i < 4; i++) {
             refreshCells("NS_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][0] + "_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][1], 1);
         }
+        var time = 1100 - 100 * oGameScense.iLevel;
 
-
+        var downTimeout = window.setInterval(function() {
+            var e = window.KeyboardEvent;
+            e.keyCode = 40;
+            onkeydownEvent(e);
+        }, time);
     }
 
     oGameScense.PauseGame = function() {
