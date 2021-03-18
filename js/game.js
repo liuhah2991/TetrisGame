@@ -28,7 +28,7 @@
         refreshShape(2);
 
         for (let i = 0; i < 4; i++) {
-            refreshCells("NS_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][0] + "_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][1], 1);
+            refreshNextShape(1);
         }
         var time = 1100 - 100 * oGameScense.iLevel;
 
@@ -48,9 +48,6 @@
         oGameScense.eGameState = eGameState.OVER;
 
     }
-
-
-
 
     window.oGameScense = oGameScense;
 })(window)

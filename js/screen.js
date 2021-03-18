@@ -39,6 +39,12 @@
            }
        }
 
+       function refreshNextShape(value){
+            for (let i = 0; i < 4; i++) {
+                refreshCells("NS_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][0] + "_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][1], value);
+            }
+       }
+
        function resetScreen() {
            for (let i = 4; i < 24; i++) {
                for (let j = 0; j < 11; j++) {
@@ -56,7 +62,8 @@
            }
        }
 
-       window.refreshCells = refreshCells;
+    //    window.refreshCells = refreshCells;
        window.refreshShape = refreshShape;
+       window.refreshNextShape = refreshNextShape;
        window.resetScreen = resetScreen;
    })(window)

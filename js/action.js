@@ -19,6 +19,9 @@
             //down
             if (moveBoundaryCheck(1, 0)) {
                 move(1, 0);
+            }else{
+                // bottomingOutCheck();
+                bottomingOut();
             }
             return;
         }
@@ -44,10 +47,17 @@
         return BoundaryCheck(nextPosture, initialPosition[0], initialPosition[1]);
     }
 
+    // function bottomingOutCheck(){
+    //     for(let i=0;i<4;i++){
+    //         let next_x = oGameScense.oCurrentShape[oGameScense.iCurrentPosture][i][0] + 1;
+    //         if()
+    //     }
+    // }
+
     function BoundaryCheck(p, x, y) {
         for (let i = 0; i < 4; i++) {
             let next_x = oGameScense.oCurrentShape[p][i][0] + x;
-            if (next_x > 24) return false;
+            if (next_x > 23) return false;
             let next_y = oGameScense.oCurrentShape[p][i][1] + y;
             if (next_y < 0 || next_y > 10) return false;
             if (next_x > 3) {
@@ -70,6 +80,45 @@
         oGameScense.iCurrentPosture = (oGameScense.iCurrentPosture + 1) % 4;
         refreshShape(2);
     }
+
+    //触发触底事件
+    function bottomingOut(){
+        //1. 固定当前图形在屏幕中的位置
+        refreshShape(1);
+        //2. 做消行检查
+        fullLineCheck();
+        //3. 替换图形
+        switchShape();
+    }
+
+    function switchShape(){
+        refreshNextShape(0);
+        oGameScense.oCurrentShape = oGameScense.oNextShape;
+        oGameScense.iCurrentPosture = oGameScense.iNextPosture;
+        oGameScense.oNextShape = getShape();
+        oGameScense.iNextPosture = Math.floor(Math.random() * 4);
+        refreshNextShape(1);
+        initialPosition = [2,4];
+    }
+
+    function fullLineCheck(){
+        let lines=[];
+        for(let i=23;i>3;i++){
+            for(let j=0;j<11;j++){
+                if(document.getElementById("CS_" + i + "_" + j).value !=1) break;
+                if(j==10) lines.push(i);
+            }
+        }
+
+        if(lines.length>0){
+            removeLine(lines);
+        }
+    }
+
+    function removeLine(lines){
+        
+    }
+
 
     window.onkeydownEvent = onkeydownEvent;
 })(window)
