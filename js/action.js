@@ -19,7 +19,7 @@
             //down
             if (moveBoundaryCheck(1, 0)) {
                 move(1, 0);
-            }else{
+            } else {
                 // bottomingOutCheck();
                 bottomingOut();
             }
@@ -82,7 +82,7 @@
     }
 
     //触发触底事件
-    function bottomingOut(){
+    function bottomingOut() {
         //1. 固定当前图形在屏幕中的位置
         refreshShape(1);
         //2. 做消行检查
@@ -91,34 +91,46 @@
         switchShape();
     }
 
-    function switchShape(){
+    function switchShape() {
         refreshNextShape(0);
         oGameScense.oCurrentShape = oGameScense.oNextShape;
         oGameScense.iCurrentPosture = oGameScense.iNextPosture;
         oGameScense.oNextShape = getShape();
         oGameScense.iNextPosture = Math.floor(Math.random() * 4);
         refreshNextShape(1);
-        initialPosition = [2,4];
+        initialPosition = [2, 4];
     }
 
-    function fullLineCheck(){
-        let lines=[];
-        for(let i=23;i>3;i++){
-            for(let j=0;j<11;j++){
-                if(document.getElementById("CS_" + i + "_" + j).value !=1) break;
-                if(j==10) lines.push(i);
+    function fullLineCheck() {
+        let lines = [];
+        for (let i = 23; i > 3; i--) {
+            for (let j = 0; j < 11; j++) {
+                if (document.getElementById("CS_" + i + "_" + j).value != 1) break;
+                if (j == 10) lines.push(i);
             }
         }
 
-        if(lines.length>0){
+        if (lines.length > 0) {
             removeLine(lines);
         }
     }
 
-    function removeLine(lines){
-        
-    }
+    function removeLine(lines) {
+        oGameScense.PauseGame();
+        removeLineCells(lines);
 
+        for (let i = 0; i < lines.length; i++) {
+            for (let j = lines[i]; j > 3; j--) {
+                n = j - 1;
+                for (let k = 0; k < 11; k++) {
+                    document.getElementById("CS_" + j + "_" + k).value = document.getElementById("CS_" + n + "_" + k).value;
+                    refreshCells("CS_" + j + "_" + k, document.getElementById("CS_" + j + "_" + k).value);
+                }
+            }
+        }
+
+        oGameScense.RunGame();
+    }
 
     window.onkeydownEvent = onkeydownEvent;
 })(window)

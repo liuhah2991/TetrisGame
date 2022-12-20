@@ -39,10 +39,10 @@
            }
        }
 
-       function refreshNextShape(value){
-            for (let i = 0; i < 4; i++) {
-                refreshCells("NS_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][0] + "_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][1], value);
-            }
+       function refreshNextShape(value) {
+           for (let i = 0; i < 4; i++) {
+               refreshCells("NS_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][0] + "_" + oGameScense.oNextShape[oGameScense.iNextPosture][i][1], value);
+           }
        }
 
        function resetScreen() {
@@ -62,8 +62,39 @@
            }
        }
 
-    //    window.refreshCells = refreshCells;
+       function switchLineCellsStatus(lineIndex, status) {
+           if (status == "full") {
+               for (let j = 0; j < 11; j++) {
+                   document.getElementById("CS_" + lineIndex + "_" + j).style.backgroundPosition = "27px 0px";
+               }
+           } else if (status == "null") {
+               for (let j = 0; j < 11; j++) {
+                   document.getElementById("CS_" + lineIndex + "_" + j).style.backgroundPosition = "13px 0px";
+               }
+           }
+       }
+
+       function removeLineCells(lines) {
+           for (let i = 0; i < lines.length; i++) {
+               window.setTimeout(function(i) {
+                   switchLineCellsStatus(lines[i], "null");
+               }(i), 100);
+
+               //    window.setTimeout(function(i) {
+               //        switchLineCellsStatus(lines[i], "full");
+               //    }(i), 2000);
+
+               //    window.setTimeout(function(i) {
+               //        switchLineCellsStatus(lines[i], "null");
+               //    }(i), 3000);
+           }
+       }
+
+
+
+       window.refreshCells = refreshCells;
        window.refreshShape = refreshShape;
        window.refreshNextShape = refreshNextShape;
        window.resetScreen = resetScreen;
+       window.removeLineCells = removeLineCells;
    })(window)
