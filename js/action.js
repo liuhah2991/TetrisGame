@@ -19,8 +19,9 @@
             //down
             if (moveBoundaryCheck(1, 0)) {
                 move(1, 0);
+            } else if (initialPosition[0] < 4) {
+                oGameScense.OverGame();
             } else {
-                // bottomingOutCheck();
                 bottomingOut();
             }
             return;
@@ -47,12 +48,6 @@
         return BoundaryCheck(nextPosture, initialPosition[0], initialPosition[1]);
     }
 
-    // function bottomingOutCheck(){
-    //     for(let i=0;i<4;i++){
-    //         let next_x = oGameScense.oCurrentShape[oGameScense.iCurrentPosture][i][0] + 1;
-    //         if()
-    //     }
-    // }
 
     function BoundaryCheck(p, x, y) {
         for (let i = 0; i < 4; i++) {
@@ -111,25 +106,39 @@
         }
 
         if (lines.length > 0) {
+            oGameScense.PauseGame();
             removeLine(lines);
         }
     }
 
-    function removeLine(lines) {
-        oGameScense.PauseGame();
+    async function removeLine(lines) {
         removeLineCells(lines);
 
-        for (let i = 0; i < lines.length; i++) {
-            for (let j = lines[i]; j > 3; j--) {
-                n = j - 1;
+        await sleep(1000);
+
+        for (let i = lines[0] - 1; i > 3; i--) {
+            result = numberOfLayersMoveDown(i, lines);
+            if (result != -1) {
+                j = i + result;
                 for (let k = 0; k < 11; k++) {
-                    document.getElementById("CS_" + j + "_" + k).value = document.getElementById("CS_" + n + "_" + k).value;
+                    document.getElementById("CS_" + j + "_" + k).value = document.getElementById("CS_" + i + "_" + k).value;
                     refreshCells("CS_" + j + "_" + k, document.getElementById("CS_" + j + "_" + k).value);
                 }
             }
         }
+        oGameScense.PauseGame();
+    }
 
-        oGameScense.RunGame();
+    function numberOfLayersMoveDown(index, lines) {
+        for (let i = 0; i < lines.length; i++) {
+            if (index == lines[i]) return -1;
+            if (index > lines[i]) return i;
+        }
+        return lines.length;
+    }
+
+    function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
     }
 
     window.onkeydownEvent = onkeydownEvent;

@@ -24,23 +24,31 @@
     }
 
     oGameScense.RunGame = function() {
-        oGameScense.eGameState = eGameState.RUN;
-        refreshShape(2);
+        if (oGameScense.eGameState == eGameState.INIT) {
+            oGameScense.eGameState = eGameState.RUN;
+            refreshShape(2);
 
-        for (let i = 0; i < 4; i++) {
-            refreshNextShape(1);
+            for (let i = 0; i < 4; i++) {
+                refreshNextShape(1);
+            }
+            var time = 1100 - 100 * oGameScense.iLevel;
+
+            var downTimeout = window.setInterval(function() {
+                if (oGameScense.eGameState == eGameState.RUN) {
+                    var e = window.KeyboardEvent;
+                    e.keyCode = 40;
+                    onkeydownEvent(e);
+                }
+            }, time);
         }
-        var time = 1100 - 100 * oGameScense.iLevel;
-
-        var downTimeout = window.setInterval(function() {
-            var e = window.KeyboardEvent;
-            e.keyCode = 40;
-            onkeydownEvent(e);
-        }, time);
     }
 
     oGameScense.PauseGame = function() {
-        oGameScense.eGameState = eGameState.PAUSE;
+        if (oGameScense.eGameState == eGameState.RUN) {
+            oGameScense.eGameState = eGameState.PAUSE;
+        } else {
+            oGameScense.eGameState = eGameState.RUN;
+        }
 
     }
 

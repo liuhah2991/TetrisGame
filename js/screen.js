@@ -74,22 +74,25 @@
            }
        }
 
-       function removeLineCells(lines) {
+       async function removeLineCells(lines) {
            for (let i = 0; i < lines.length; i++) {
-               window.setTimeout(function(i) {
-                   switchLineCellsStatus(lines[i], "null");
-               }(i), 100);
+               switchLineCellsStatus(lines[i], "null");
+           }
 
-               //    window.setTimeout(function(i) {
-               //        switchLineCellsStatus(lines[i], "full");
-               //    }(i), 2000);
+           await sleep(300);
+           for (let i = 0; i < lines.length; i++) {
+               switchLineCellsStatus(lines[i], "full");
+           }
 
-               //    window.setTimeout(function(i) {
-               //        switchLineCellsStatus(lines[i], "null");
-               //    }(i), 3000);
+           await sleep(300);
+           for (let i = 0; i < lines.length; i++) {
+               switchLineCellsStatus(lines[i], "null");
            }
        }
 
+       function sleep(time) {
+           return new Promise((resolve) => setTimeout(resolve, time));
+       }
 
 
        window.refreshCells = refreshCells;
